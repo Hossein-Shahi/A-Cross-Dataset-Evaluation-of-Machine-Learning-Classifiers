@@ -1,0 +1,254 @@
+{
+ "UNSW_flows_in_file": 1986745,
+ "UNSW_unique_flows": 236946,
+ "UNSW_copies_%": 88.1,
+ "UNSW_attack_share_file_%": 3.78,
+ "UNSW_attack_share_used_%": 15.67,
+ "CSE_flows_in_file": 17129715,
+ "CSE_unique_flows": 8849750,
+ "CSE_copies_%": 48.3,
+ "CSE_attack_share_file_%": 11.84,
+ "CSE_attack_share_used_%": 6.14,
+ "UNSW_flows_above_1TB_per_s": 100,
+ "UNSW_max_byte_rate": 1572819439714304.0,
+ "CSE_flows_above_1TB_per_s": 231,
+ "CSE_max_byte_rate": 5.874011046019991e+285,
+ "n_train_main": [
+  165862
+ ],
+ "n_test_main": [
+  71084
+ ],
+ "CSE_test_benign_%": 93.9,
+ "CSE->CSE": {
+  "F1": {
+   "min": 85.5,
+   "max": 92.5
+  },
+  "DR": {
+   "min": 84.8,
+   "max": 86.5
+  },
+  "FAR": {
+   "min": 0.0,
+   "max": 1.0
+  },
+  "MCC": {
+   "min": 84.6,
+   "max": 92.4
+  },
+  "AUC": {
+   "min": 0.927,
+   "max": 0.943
+  },
+  "negative_MCC_models": 0
+ },
+ "CSE->UNSW": {
+  "F1": {
+   "min": 0.0,
+   "max": 4.2
+  },
+  "DR": {
+   "min": 0.0,
+   "max": 2.5
+  },
+  "FAR": {
+   "min": 0.1,
+   "max": 1.4
+  },
+  "MCC": {
+   "min": -2.1,
+   "max": 4.0
+  },
+  "AUC": {
+   "min": 0.192,
+   "max": 0.58
+  },
+  "negative_MCC_models": 3
+ },
+ "UNSW->CSE": {
+  "F1": {
+   "min": 1.2,
+   "max": 7.2
+  },
+  "DR": {
+   "min": 2.0,
+   "max": 9.7
+  },
+  "FAR": {
+   "min": 6.6,
+   "max": 33.4
+  },
+  "MCC": {
+   "min": -13.7,
+   "max": 0.2
+  },
+  "AUC": {
+   "min": 0.117,
+   "max": 0.781
+  },
+  "negative_MCC_models": 4
+ },
+ "UNSW->UNSW": {
+  "F1": {
+   "min": 79.8,
+   "max": 92.6
+  },
+  "DR": {
+   "min": 81.2,
+   "max": 94.0
+  },
+  "FAR": {
+   "min": 1.7,
+   "max": 4.1
+  },
+  "MCC": {
+   "min": 76.0,
+   "max": 91.2
+  },
+  "AUC": {
+   "min": 0.937,
+   "max": 0.995
+  },
+  "negative_MCC_models": 0
+ },
+ "average_over_models_%": {
+  "CSE->CSE": {
+   "F1": 89.8,
+   "MCC": 89.3
+  },
+  "CSE->UNSW": {
+   "F1": 1.7,
+   "MCC": 0.7
+  },
+  "UNSW->CSE": {
+   "F1": 3.1,
+   "MCC": -6.4
+  },
+  "UNSW->UNSW": {
+   "F1": 88.7,
+   "MCC": 86.6
+  }
+ },
+ "DoS_detected_%": {
+  "UNSW->UNSW": {
+   "DT": 90.5,
+   "ET": 93.2,
+   "LR": 80.8,
+   "MLP": 86.6,
+   "XGB": 93.6
+  },
+  "CSE->CSE": {
+   "DT": 100.0,
+   "ET": 99.9,
+   "LR": 99.0,
+   "MLP": 99.8,
+   "XGB": 100.0
+  },
+  "CSE->UNSW": {
+   "DT": 3.3,
+   "ET": 0.2,
+   "LR": 2.0,
+   "MLP": 2.0,
+   "XGB": 0.1
+  },
+  "UNSW->CSE": {
+   "DT": 0.0,
+   "ET": 0.1,
+   "LR": 0.9,
+   "MLP": 8.8,
+   "XGB": 0.0
+  }
+ },
+ "UNSW->CSE_models_flagging_DoS_no_more_than_benign": 5,
+ "Infiltration_detected_same_dataset_%": {
+  "DT": 2.7,
+  "ET": 2.1,
+  "LR": 0.4,
+  "MLP": 0.0,
+  "XGB": 0.5
+ },
+ "Infiltration_share_of_missed_CSE_attacks_%": {
+  "DT": 99.5,
+  "ET": 99.2,
+  "LR": 90.5,
+  "MLP": 97.5,
+  "XGB": 99.6
+ },
+ "LOIC-HTTP_UNSW->CSE_flagged_%": {
+  "DT": 53.7,
+  "ET": 1.1,
+  "LR": 2.4,
+  "MLP": 14.9,
+  "XGB": 44.0
+ },
+ "LOIC-HTTP_test_flows_per_run": {
+  "mean": 133.2,
+  "min": 127,
+  "max": 139
+ },
+ "DoS_only_F1_%": {
+  "CSE->CSE": {
+   "DT": 99.9,
+   "ET": 99.9,
+   "LR": 99.0,
+   "MLP": 99.6,
+   "XGB": 100.0
+  },
+  "CSE->UNSW": {
+   "DT": 0.0,
+   "ET": 0.0,
+   "LR": 1.2,
+   "MLP": 3.8,
+   "XGB": 0.0
+  },
+  "UNSW->CSE": {
+   "DT": 0.0,
+   "ET": 0.0,
+   "LR": 0.1,
+   "MLP": 0.1,
+   "XGB": 0.0
+  },
+  "UNSW->UNSW": {
+   "DT": 75.6,
+   "ET": 79.9,
+   "LR": 8.3,
+   "MLP": 61.4,
+   "XGB": 77.8
+  }
+ },
+ "DoS_only_AUC": {
+  "CSE->CSE": {
+   "DT": 1.0,
+   "ET": 1.0,
+   "LR": 1.0,
+   "MLP": 1.0,
+   "XGB": 1.0
+  },
+  "CSE->UNSW": {
+   "DT": 0.487,
+   "ET": 0.556,
+   "LR": 0.798,
+   "MLP": 0.692,
+   "XGB": 0.745
+  },
+  "UNSW->CSE": {
+   "DT": 0.483,
+   "ET": 0.106,
+   "LR": 0.892,
+   "MLP": 0.702,
+   "XGB": 0.022
+  },
+  "UNSW->UNSW": {
+   "DT": 0.88,
+   "ET": 0.984,
+   "LR": 0.953,
+   "MLP": 0.992,
+   "XGB": 0.991
+  }
+ },
+ "dataset_classifier_accuracy_%": {
+  "all flows": 99.96,
+  "benign flows only": 99.96
+ }
+}

@@ -1,0 +1,167 @@
+{
+  "UNSW": {
+    "file": "NF-UNSW-NB15-V2.parquet",
+    "file_counts": {
+      "flows": 1986745,
+      "attacks": 75079,
+      "attack_share_%": 3.78,
+      "per_class": {
+        "Benign": 1911666,
+        "Exploits": 29905,
+        "Fuzzers": 20645,
+        "Reconnaissance": 11171,
+        "Generic": 5992,
+        "DoS": 4172,
+        "Shellcode": 1427,
+        "Backdoor": 833,
+        "Analysis": 770,
+        "Worms": 164
+      }
+    },
+    "unique_counts": {
+      "flows": 236946,
+      "attacks": 37141,
+      "attack_share_%": 15.67,
+      "per_class": {
+        "Benign": 199805,
+        "Exploits": 21947,
+        "Fuzzers": 7295,
+        "Generic": 3621,
+        "DoS": 3071,
+        "Reconnaissance": 433,
+        "Analysis": 355,
+        "Shellcode": 210,
+        "Backdoor": 157,
+        "Worms": 52
+      }
+    },
+    "conflicting_feature_vectors": 17,
+    "main_counts": {
+      "flows": 236946,
+      "attacks": 37141,
+      "attack_share_%": 15.67,
+      "per_class": {
+        "Benign": 199805,
+        "Exploits": 21947,
+        "Fuzzers": 7295,
+        "Generic": 3621,
+        "DoS": 3071,
+        "Reconnaissance": 433,
+        "Analysis": 355,
+        "Shellcode": 210,
+        "Backdoor": 157,
+        "Worms": 52
+      }
+    },
+    "main_features": 37,
+    "repl_counts": {
+      "flows": 1000000,
+      "attacks": 37790,
+      "attack_share_%": 3.78,
+      "per_class": {
+        "Benign": 962210,
+        "Exploits": 15052,
+        "Fuzzers": 10391,
+        "Reconnaissance": 5623,
+        "Generic": 3016,
+        "DoS": 2100,
+        "Shellcode": 718,
+        "Backdoor": 419,
+        "Analysis": 388,
+        "Worms": 83
+      }
+    }
+  },
+  "CSE": {
+    "file": "NF-CSE-CIC-IDS2018-V2.parquet",
+    "file_counts": {
+      "flows": 17129715,
+      "attacks": 2028030,
+      "attack_share_%": 11.84,
+      "per_class": {
+        "Benign": 15101685,
+        "DDOS attack-HOIC": 1066881,
+        "DoS attacks-Hulk": 432648,
+        "DDoS attacks-LOIC-HTTP": 207078,
+        "Infilteration": 115513,
+        "SSH-Bruteforce": 94979,
+        "Bot": 28033,
+        "DoS attacks-GoldenEye": 27723,
+        "FTP-BruteForce": 25933,
+        "DoS attacks-SlowHTTPTest": 14116,
+        "DoS attacks-Slowloris": 9512,
+        "Brute Force -Web": 2143,
+        "DDOS attack-LOIC-UDP": 2112,
+        "Brute Force -XSS": 927,
+        "SQL Injection": 432
+      }
+    },
+    "unique_counts": {
+      "flows": 8849750,
+      "attacks": 543760,
+      "attack_share_%": 6.14,
+      "per_class": {
+        "Benign": 8305990,
+        "DoS attacks-Hulk": 311534,
+        "DDOS attack-HOIC": 95584,
+        "Infilteration": 74909,
+        "DoS attacks-GoldenEye": 27018,
+        "DDoS attacks-LOIC-HTTP": 16791,
+        "SSH-Bruteforce": 14701,
+        "DDOS attack-LOIC-UDP": 2107,
+        "Bot": 472,
+        "Brute Force -Web": 190,
+        "DoS attacks-Slowloris": 188,
+        "Brute Force -XSS": 165,
+        "SQL Injection": 67,
+        "FTP-BruteForce": 19,
+        "DoS attacks-SlowHTTPTest": 15
+      }
+    },
+    "conflicting_feature_vectors": 649,
+    "main_counts": {
+      "flows": 236946,
+      "attacks": 14559,
+      "attack_share_%": 6.14,
+      "per_class": {
+        "Benign": 222387,
+        "DoS attacks-Hulk": 8341,
+        "DDOS attack-HOIC": 2559,
+        "Infilteration": 2006,
+        "DoS attacks-GoldenEye": 723,
+        "DDoS attacks-LOIC-HTTP": 450,
+        "SSH-Bruteforce": 394,
+        "DDOS attack-LOIC-UDP": 56,
+        "Bot": 13,
+        "Brute Force -Web": 5,
+        "DoS attacks-Slowloris": 5,
+        "Brute Force -XSS": 4,
+        "SQL Injection": 2,
+        "FTP-BruteForce": 1
+      }
+    },
+    "main_features": 37,
+    "repl_counts": {
+      "flows": 1000000,
+      "attacks": 118392,
+      "attack_share_%": 11.84,
+      "per_class": {
+        "Benign": 881608,
+        "DDOS attack-HOIC": 62283,
+        "DoS attacks-Hulk": 25257,
+        "DDoS attacks-LOIC-HTTP": 12089,
+        "Infilteration": 6743,
+        "SSH-Bruteforce": 5545,
+        "Bot": 1637,
+        "DoS attacks-GoldenEye": 1618,
+        "FTP-BruteForce": 1514,
+        "DoS attacks-SlowHTTPTest": 824,
+        "DoS attacks-Slowloris": 555,
+        "Brute Force -Web": 125,
+        "DDOS attack-LOIC-UDP": 123,
+        "Brute Force -XSS": 54,
+        "SQL Injection": 25
+      }
+    }
+  }
+}

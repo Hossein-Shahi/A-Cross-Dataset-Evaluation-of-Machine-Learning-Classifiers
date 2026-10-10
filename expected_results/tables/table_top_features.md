@@ -1,0 +1,8 @@
+| XGB trained on | feature | share of total gain (%) | UNSW benign median | UNSW attack median | CSE benign median | CSE attack median |
+|---|---|---|---|---|---|---|
+| CSE | DURATION_IN | 80.9 | 0.0 | 0.0 | 0.0 | 234.0 |
+| UNSW | MIN_IP_PKT_LEN | 71.4 | 65.0 | 40.0 | 66.0 | 52.0 |
+| UNSW | TCP_WIN_MAX_IN | 10.3 | 0.0 | 16383.0 | 0.0 | 26883.0 |
+| CSE | TCP_WIN_MAX_IN | 9.7 | 0.0 | 16383.0 | 0.0 | 26883.0 |
+| UNSW | DNS_TTL_ANSWER | 3.9 | 60.0 | 0.0 | 60.0 | 0.0 |
+| CSE | IN_PKTS | 2.2 | 2.0 | 12.0 | 1.0 | 21.0 |

@@ -1,0 +1,6 @@
+| Dataset | Source | Accuracy (%) | AUC | F1 | DR (%) | FAR (%) |
+|---|---|---|---|---|---|---|
+| NF-UNSW-NB15-v2 | Sarhan et al. (2022), full data | 99.73 | 0.9845 | 0.97 | 97.07 | 0.16 |
+| NF-UNSW-NB15-v2 | This study, 1,000,000-flow sample, 5 runs | 99.65 (0.02) | 0.9984 (0.0002) | 0.95 (0.00) | 96.32 (0.21) | 0.22 (0.01) |
+| NF-CSE-CIC-IDS2018-v2 | Sarhan et al. (2022), full data | 99.35 | 0.9829 | 0.97 | 96.89 | 0.31 |
+| NF-CSE-CIC-IDS2018-v2 | This study, 1,000,000-flow sample, 5 runs | 99.24 (0.01) | 0.9823 (0.0004) | 0.97 (0.00) | 96.27 (0.05) | 0.37 (0.01) |

@@ -1,0 +1,3 @@
+subset,n_test,accuracy (%),AUC
+all flows,142168,99.96,0.9999
+benign flows only,126658,99.96,0.9999

@@ -1,6 +1,10 @@
-# A-Cross-Dataset-Evaluation-of-Machine-Learning-Classifiers
-Cross-Dataset Evaluation of Machine Learning Intrusion Detectors
+# Cross-Dataset Evaluation of Machine Learning Intrusion Detectors
 A Cross-Dataset Evaluation of Machine Learning Classifiers
+
+# Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets
+Hossein Shahi* 1, Junaid Shuja 2
+Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
+Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
 
 
 This code is for the paper *Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets:
@@ -110,4 +114,3 @@ Where each part of the paper comes from:
 The NetFlow datasets were created by Sarhan, Layeghy and Portmann (University of Queensland). The cleaned Kaggle versions were prepared by L. D'hooge. Please cite:
 
 - Sarhan, M., Layeghy, S., & Portmann, M. (2022). Towards a standard feature set for network intrusion detection system datasets. *Mobile Networks and Applications, 27*(1), 357-370. https://doi.org/10.1007/s11036-021-01843-0
-
