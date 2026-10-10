@@ -1,10 +1,11 @@
 # A-Cross-Dataset-Evaluation-of-Machine-Learning-Classifiers
-This code is for the paper *Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets: A Cross-Dataset Evaluation of Machine Learning Classifiers*.
+# This code is for the paper:
+# Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets: A Cross-Dataset Evaluation of Machine Learning Classifiers
 
-# Cross-Dataset Evaluation of Machine Learning Intrusion Detectors
+Cross-Dataset Evaluation of Machine Learning Intrusion Detectors
 A Cross-Dataset Evaluation of Machine Learning Classifiers
 
-# Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets
+Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets: A Cross-Dataset Evaluation of Machine Learning Classifiers
 Hossein Shahi* 1, Junaid Shuja 2
 Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
 Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
