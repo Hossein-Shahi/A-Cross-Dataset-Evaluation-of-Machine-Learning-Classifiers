@@ -250,5 +250,1197 @@
  "dataset_classifier_accuracy_%": {
   "all flows": 99.96,
   "benign flows only": 99.96
+ },
+ "adapt": {
+  "CSE->UNSW": {
+   "test_attack_share_%": 15.67,
+   "flag_all_F1_%": 27.1,
+   "n_calibration": [
+    1658
+   ],
+   "calibration_attacks": [
+    260
+   ],
+   "CORAL": {
+    "default": {
+     "DT": {
+      "F1": 6.5,
+      "MCC": -19.9,
+      "DR": 8.1,
+      "FAR": 34.8,
+      "AUC": 0.367,
+      "flagged_%": 30.6,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": -0.2,
+      "DR": 0.0,
+      "FAR": 0.0,
+      "AUC": 0.682,
+      "flagged_%": 0.0,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 7.0,
+      "MCC": 4.6,
+      "DR": 4.1,
+      "FAR": 2.1,
+      "AUC": 0.45,
+      "flagged_%": 2.4,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 13.1,
+      "MCC": 6.0,
+      "DR": 9.0,
+      "FAR": 5.1,
+      "AUC": 0.698,
+      "flagged_%": 5.7,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 2.4,
+      "MCC": 2.3,
+      "DR": 1.2,
+      "FAR": 0.6,
+      "AUC": 0.59,
+      "flagged_%": 0.7,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 27.1,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.367,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 44.8,
+      "MCC": 36.2,
+      "DR": 83.8,
+      "FAR": 34.6,
+      "AUC": 0.682,
+      "flagged_%": 42.3,
+      "threshold": 0.062
+     },
+     "LR": {
+      "F1": 33.0,
+      "MCC": 17.6,
+      "DR": 43.2,
+      "FAR": 22.1,
+      "AUC": 0.45,
+      "flagged_%": 25.4,
+      "threshold": 0.01
+     },
+     "MLP": {
+      "F1": 48.1,
+      "MCC": 40.8,
+      "DR": 89.4,
+      "FAR": 33.8,
+      "AUC": 0.698,
+      "flagged_%": 42.5,
+      "threshold": 0.0012
+     },
+     "XGB": {
+      "F1": 40.0,
+      "MCC": 25.9,
+      "DR": 78.4,
+      "FAR": 44.2,
+      "AUC": 0.59,
+      "flagged_%": 49.6,
+      "threshold": 0.0025
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 27.1,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.367,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 44.8,
+      "MCC": 36.2,
+      "DR": 83.8,
+      "FAR": 34.6,
+      "AUC": 0.682,
+      "flagged_%": 42.3,
+      "threshold": 0.062
+     },
+     "LR": {
+      "F1": 32.8,
+      "MCC": 17.5,
+      "DR": 42.7,
+      "FAR": 21.9,
+      "AUC": 0.45,
+      "flagged_%": 25.1,
+      "threshold": 0.0102
+     },
+     "MLP": {
+      "F1": 48.0,
+      "MCC": 40.7,
+      "DR": 89.1,
+      "FAR": 33.8,
+      "AUC": 0.698,
+      "flagged_%": 42.5,
+      "threshold": 0.0013
+     },
+     "XGB": {
+      "F1": 39.9,
+      "MCC": 25.7,
+      "DR": 78.2,
+      "FAR": 44.2,
+      "AUC": 0.59,
+      "flagged_%": 49.5,
+      "threshold": 0.0027
+     }
+    }
+   },
+   "none": {
+    "default": {
+     "DT": {
+      "F1": 4.2,
+      "MCC": 3.3,
+      "DR": 2.5,
+      "FAR": 1.4,
+      "AUC": 0.505,
+      "flagged_%": 1.5,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": -2.1,
+      "DR": 0.0,
+      "FAR": 0.3,
+      "AUC": 0.58,
+      "flagged_%": 0.3,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 2.5,
+      "MCC": 4.0,
+      "DR": 1.3,
+      "FAR": 0.5,
+      "AUC": 0.42,
+      "flagged_%": 0.6,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 1.7,
+      "MCC": -0.7,
+      "DR": 0.9,
+      "FAR": 1.2,
+      "AUC": 0.287,
+      "flagged_%": 1.1,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 0.0,
+      "MCC": -0.9,
+      "DR": 0.0,
+      "FAR": 0.1,
+      "AUC": 0.192,
+      "flagged_%": 0.1,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 27.1,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.505,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 38.8,
+      "MCC": 25.5,
+      "DR": 66.5,
+      "FAR": 32.4,
+      "AUC": 0.58,
+      "flagged_%": 37.8,
+      "threshold": 0.01
+     },
+     "LR": {
+      "F1": 32.4,
+      "MCC": 17.3,
+      "DR": 41.2,
+      "FAR": 20.9,
+      "AUC": 0.42,
+      "flagged_%": 24.1,
+      "threshold": 0.0129
+     },
+     "MLP": {
+      "F1": 27.3,
+      "MCC": 2.5,
+      "DR": 86.6,
+      "FAR": 83.8,
+      "AUC": 0.287,
+      "flagged_%": 84.3,
+      "threshold": 0.0028
+     },
+     "XGB": {
+      "F1": 27.1,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.192,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 27.1,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.505,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 38.8,
+      "MCC": 25.5,
+      "DR": 66.5,
+      "FAR": 32.4,
+      "AUC": 0.58,
+      "flagged_%": 37.8,
+      "threshold": 0.01
+     },
+     "LR": {
+      "F1": 32.2,
+      "MCC": 17.1,
+      "DR": 40.1,
+      "FAR": 20.3,
+      "AUC": 0.42,
+      "flagged_%": 23.4,
+      "threshold": 0.0139
+     },
+     "MLP": {
+      "F1": 27.2,
+      "MCC": -0.9,
+      "DR": 86.2,
+      "FAR": 83.8,
+      "AUC": 0.287,
+      "flagged_%": 84.1,
+      "threshold": 0.0028
+     },
+     "XGB": {
+      "F1": 27.0,
+      "MCC": -6.2,
+      "DR": 99.4,
+      "FAR": 100.0,
+      "AUC": 0.192,
+      "flagged_%": 99.9,
+      "threshold": 0.0
+     }
+    }
+   },
+   "largest_oracle_minus_recalibrated_F1_points": 0.2
+  },
+  "UNSW->CSE": {
+   "test_attack_share_%": 6.14,
+   "flag_all_F1_%": 11.6,
+   "n_calibration": [
+    1658
+   ],
+   "calibration_attacks": [
+    102
+   ],
+   "CORAL": {
+    "default": {
+     "DT": {
+      "F1": 7.4,
+      "MCC": -15.3,
+      "DR": 25.7,
+      "FAR": 56.1,
+      "AUC": 0.348,
+      "flagged_%": 54.2,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 11.3,
+      "MCC": 2.9,
+      "DR": 20.5,
+      "FAR": 16.2,
+      "AUC": 0.283,
+      "flagged_%": 16.4,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 9.3,
+      "MCC": 1.2,
+      "DR": 14.2,
+      "FAR": 12.6,
+      "AUC": 0.574,
+      "flagged_%": 12.7,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 8.0,
+      "MCC": 2.9,
+      "DR": 7.4,
+      "FAR": 5.0,
+      "AUC": 0.307,
+      "flagged_%": 5.2,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 9.3,
+      "MCC": -2.0,
+      "DR": 24.4,
+      "FAR": 29.3,
+      "AUC": 0.268,
+      "flagged_%": 29.0,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 12.9,
+      "MCC": 2.4,
+      "DR": 84.2,
+      "FAR": 81.5,
+      "AUC": 0.348,
+      "flagged_%": 81.6,
+      "threshold": 0.2
+     },
+     "ET": {
+      "F1": 15.3,
+      "MCC": 8.3,
+      "DR": 35.4,
+      "FAR": 26.9,
+      "AUC": 0.283,
+      "flagged_%": 27.4,
+      "threshold": 0.518
+     },
+     "LR": {
+      "F1": 15.3,
+      "MCC": 8.8,
+      "DR": 53.0,
+      "FAR": 35.3,
+      "AUC": 0.574,
+      "flagged_%": 36.4,
+      "threshold": 0.0078
+     },
+     "MLP": {
+      "F1": 14.9,
+      "MCC": 7.8,
+      "DR": 21.8,
+      "FAR": 12.1,
+      "AUC": 0.307,
+      "flagged_%": 12.7,
+      "threshold": 0.2129
+     },
+     "XGB": {
+      "F1": 13.7,
+      "MCC": 5.8,
+      "DR": 36.3,
+      "FAR": 29.0,
+      "AUC": 0.268,
+      "flagged_%": 29.4,
+      "threshold": 0.5327
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 12.9,
+      "MCC": 2.4,
+      "DR": 84.2,
+      "FAR": 81.5,
+      "AUC": 0.348,
+      "flagged_%": 81.6,
+      "threshold": 0.2
+     },
+     "ET": {
+      "F1": 14.7,
+      "MCC": 8.1,
+      "DR": 19.6,
+      "FAR": 10.8,
+      "AUC": 0.283,
+      "flagged_%": 11.3,
+      "threshold": 0.586
+     },
+     "LR": {
+      "F1": 15.1,
+      "MCC": 8.4,
+      "DR": 51.4,
+      "FAR": 34.7,
+      "AUC": 0.574,
+      "flagged_%": 35.7,
+      "threshold": 0.0082
+     },
+     "MLP": {
+      "F1": 14.7,
+      "MCC": 6.8,
+      "DR": 37.8,
+      "FAR": 29.2,
+      "AUC": 0.307,
+      "flagged_%": 29.7,
+      "threshold": 0.1488
+     },
+     "XGB": {
+      "F1": 13.4,
+      "MCC": 4.6,
+      "DR": 36.5,
+      "FAR": 29.5,
+      "AUC": 0.268,
+      "flagged_%": 30.0,
+      "threshold": 0.5201
+     }
+    }
+   },
+   "none": {
+    "default": {
+     "DT": {
+      "F1": 2.4,
+      "MCC": -13.7,
+      "DR": 6.6,
+      "FAR": 33.4,
+      "AUC": 0.366,
+      "flagged_%": 31.7,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 1.2,
+      "MCC": -8.8,
+      "DR": 2.0,
+      "FAR": 14.8,
+      "AUC": 0.183,
+      "flagged_%": 14.0,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 2.8,
+      "MCC": -5.9,
+      "DR": 3.9,
+      "FAR": 11.6,
+      "AUC": 0.75,
+      "flagged_%": 11.2,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 7.2,
+      "MCC": 0.2,
+      "DR": 9.7,
+      "FAR": 8.8,
+      "AUC": 0.781,
+      "flagged_%": 8.9,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 2.2,
+      "MCC": -3.8,
+      "DR": 2.3,
+      "FAR": 6.6,
+      "AUC": 0.117,
+      "flagged_%": 6.3,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 11.6,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.366,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 11.6,
+      "MCC": 0.1,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.183,
+      "flagged_%": 100.0,
+      "threshold": 0.004
+     },
+     "LR": {
+      "F1": 28.6,
+      "MCC": 28.4,
+      "DR": 74.5,
+      "FAR": 22.7,
+      "AUC": 0.75,
+      "flagged_%": 25.8,
+      "threshold": 0.0145
+     },
+     "MLP": {
+      "F1": 33.1,
+      "MCC": 32.9,
+      "DR": 74.2,
+      "FAR": 18.1,
+      "AUC": 0.781,
+      "flagged_%": 21.6,
+      "threshold": 0.0381
+     },
+     "XGB": {
+      "F1": 11.6,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.117,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 11.6,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.366,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 11.6,
+      "MCC": -0.2,
+      "DR": 99.9,
+      "FAR": 99.9,
+      "AUC": 0.183,
+      "flagged_%": 99.9,
+      "threshold": 0.006
+     },
+     "LR": {
+      "F1": 27.9,
+      "MCC": 26.5,
+      "DR": 67.4,
+      "FAR": 20.6,
+      "AUC": 0.75,
+      "flagged_%": 23.5,
+      "threshold": 0.0199
+     },
+     "MLP": {
+      "F1": 33.0,
+      "MCC": 32.6,
+      "DR": 73.2,
+      "FAR": 17.8,
+      "AUC": 0.781,
+      "flagged_%": 21.2,
+      "threshold": 0.0361
+     },
+     "XGB": {
+      "F1": 11.5,
+      "MCC": -5.8,
+      "DR": 99.5,
+      "FAR": 100.0,
+      "AUC": 0.117,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     }
+    }
+   },
+   "largest_oracle_minus_recalibrated_F1_points": 0.7
+  }
+ },
+ "adapt_dos": {
+  "CSE->UNSW": {
+   "test_attack_share_%": 1.51,
+   "flag_all_F1_%": 3.0,
+   "n_calibration": [
+    1420
+   ],
+   "calibration_attacks": [
+    21
+   ],
+   "CORAL": {
+    "default": {
+     "DT": {
+      "F1": 0.6,
+      "MCC": -3.1,
+      "DR": 2.0,
+      "FAR": 9.3,
+      "AUC": 0.464,
+      "flagged_%": 9.2,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": 0.0,
+      "DR": 0.0,
+      "FAR": 0.0,
+      "AUC": 0.719,
+      "flagged_%": 0.0,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 3.0,
+      "MCC": 3.5,
+      "DR": 1.8,
+      "FAR": 0.3,
+      "AUC": 0.641,
+      "flagged_%": 0.3,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 3.2,
+      "MCC": 1.3,
+      "DR": 4.8,
+      "FAR": 3.0,
+      "AUC": 0.761,
+      "flagged_%": 3.0,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 0.0,
+      "MCC": -0.6,
+      "DR": 0.0,
+      "FAR": 0.2,
+      "AUC": 0.707,
+      "flagged_%": 0.2,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 3.0,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.464,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.9,
+      "MCC": 14.9,
+      "DR": 88.3,
+      "FAR": 31.4,
+      "AUC": 0.719,
+      "flagged_%": 32.3,
+      "threshold": 0.014
+     },
+     "LR": {
+      "F1": 9.3,
+      "MCC": 11.1,
+      "DR": 41.4,
+      "FAR": 12.4,
+      "AUC": 0.641,
+      "flagged_%": 12.8,
+      "threshold": 0.0001
+     },
+     "MLP": {
+      "F1": 7.8,
+      "MCC": 15.2,
+      "DR": 91.8,
+      "FAR": 33.0,
+      "AUC": 0.761,
+      "flagged_%": 33.9,
+      "threshold": 0.0
+     },
+     "XGB": {
+      "F1": 8.0,
+      "MCC": 15.7,
+      "DR": 93.8,
+      "FAR": 32.9,
+      "AUC": 0.707,
+      "flagged_%": 33.8,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 3.0,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.464,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.9,
+      "MCC": 15.2,
+      "DR": 91.7,
+      "FAR": 32.7,
+      "AUC": 0.719,
+      "flagged_%": 33.6,
+      "threshold": 0.01
+     },
+     "LR": {
+      "F1": 7.6,
+      "MCC": 6.2,
+      "DR": 9.6,
+      "FAR": 2.1,
+      "AUC": 0.641,
+      "flagged_%": 2.2,
+      "threshold": 0.0022
+     },
+     "MLP": {
+      "F1": 6.4,
+      "MCC": 9.3,
+      "DR": 54.5,
+      "FAR": 21.2,
+      "AUC": 0.761,
+      "flagged_%": 21.7,
+      "threshold": 0.0133
+     },
+     "XGB": {
+      "F1": 7.8,
+      "MCC": 14.9,
+      "DR": 89.6,
+      "FAR": 32.2,
+      "AUC": 0.707,
+      "flagged_%": 33.1,
+      "threshold": 0.0
+     }
+    }
+   },
+   "none": {
+    "default": {
+     "DT": {
+      "F1": 0.0,
+      "MCC": -1.9,
+      "DR": 0.0,
+      "FAR": 2.7,
+      "AUC": 0.487,
+      "flagged_%": 2.7,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": -0.2,
+      "DR": 0.0,
+      "FAR": 0.0,
+      "AUC": 0.556,
+      "flagged_%": 0.0,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 1.2,
+      "MCC": 2.3,
+      "DR": 0.7,
+      "FAR": 0.1,
+      "AUC": 0.798,
+      "flagged_%": 0.1,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 3.8,
+      "MCC": 4.4,
+      "DR": 2.3,
+      "FAR": 0.3,
+      "AUC": 0.692,
+      "flagged_%": 0.3,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 0.0,
+      "MCC": -0.8,
+      "DR": 0.0,
+      "FAR": 0.6,
+      "AUC": 0.745,
+      "flagged_%": 0.6,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 3.0,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.487,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 5.3,
+      "MCC": 6.9,
+      "DR": 56.9,
+      "FAR": 30.6,
+      "AUC": 0.556,
+      "flagged_%": 31.0,
+      "threshold": 0.01
+     },
+     "LR": {
+      "F1": 8.7,
+      "MCC": 12.5,
+      "DR": 59.1,
+      "FAR": 19.0,
+      "AUC": 0.798,
+      "flagged_%": 19.6,
+      "threshold": 0.0047
+     },
+     "MLP": {
+      "F1": 13.0,
+      "MCC": 16.2,
+      "DR": 49.1,
+      "FAR": 9.4,
+      "AUC": 0.692,
+      "flagged_%": 10.0,
+      "threshold": 0.0
+     },
+     "XGB": {
+      "F1": 8.8,
+      "MCC": 14.3,
+      "DR": 72.6,
+      "FAR": 22.9,
+      "AUC": 0.745,
+      "flagged_%": 23.6,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 2.4,
+      "MCC": -0.2,
+      "DR": 80.0,
+      "FAR": 80.2,
+      "AUC": 0.487,
+      "flagged_%": 80.2,
+      "threshold": 0.2
+     },
+     "ET": {
+      "F1": 5.3,
+      "MCC": 6.9,
+      "DR": 56.9,
+      "FAR": 30.6,
+      "AUC": 0.556,
+      "flagged_%": 31.0,
+      "threshold": 0.01
+     },
+     "LR": {
+      "F1": 7.0,
+      "MCC": 7.3,
+      "DR": 27.1,
+      "FAR": 9.0,
+      "AUC": 0.798,
+      "flagged_%": 9.3,
+      "threshold": 0.028
+     },
+     "MLP": {
+      "F1": 10.9,
+      "MCC": 13.5,
+      "DR": 39.5,
+      "FAR": 8.2,
+      "AUC": 0.692,
+      "flagged_%": 8.7,
+      "threshold": 0.08
+     },
+     "XGB": {
+      "F1": 8.4,
+      "MCC": 14.2,
+      "DR": 75.3,
+      "FAR": 24.8,
+      "AUC": 0.745,
+      "flagged_%": 25.6,
+      "threshold": 0.0
+     }
+    }
+   },
+   "largest_oracle_minus_recalibrated_F1_points": 2.1
+  },
+  "UNSW->CSE": {
+   "test_attack_share_%": 3.92,
+   "flag_all_F1_%": 7.5,
+   "n_calibration": [
+    1620
+   ],
+   "calibration_attacks": [
+    63
+   ],
+   "CORAL": {
+    "default": {
+     "DT": {
+      "F1": 0.3,
+      "MCC": -4.3,
+      "DR": 0.3,
+      "FAR": 5.2,
+      "AUC": 0.476,
+      "flagged_%": 5.0,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": -1.1,
+      "DR": 0.0,
+      "FAR": 0.3,
+      "AUC": 0.012,
+      "flagged_%": 0.3,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 0.7,
+      "MCC": -2.0,
+      "DR": 0.5,
+      "FAR": 1.8,
+      "AUC": 0.604,
+      "flagged_%": 1.8,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 1.1,
+      "MCC": -0.8,
+      "DR": 0.7,
+      "FAR": 1.0,
+      "AUC": 0.118,
+      "flagged_%": 1.0,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 0.6,
+      "MCC": -4.7,
+      "DR": 0.8,
+      "FAR": 7.1,
+      "AUC": 0.041,
+      "flagged_%": 6.8,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 7.5,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.476,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.5,
+      "MCC": 0.1,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.012,
+      "flagged_%": 100.0,
+      "threshold": 0.056
+     },
+     "LR": {
+      "F1": 15.9,
+      "MCC": 13.9,
+      "DR": 43.4,
+      "FAR": 16.3,
+      "AUC": 0.604,
+      "flagged_%": 17.3,
+      "threshold": 0.0101
+     },
+     "MLP": {
+      "F1": 7.6,
+      "MCC": 1.2,
+      "DR": 100.0,
+      "FAR": 99.4,
+      "AUC": 0.118,
+      "flagged_%": 99.4,
+      "threshold": 0.0
+     },
+     "XGB": {
+      "F1": 7.6,
+      "MCC": 1.0,
+      "DR": 100.0,
+      "FAR": 99.3,
+      "AUC": 0.041,
+      "flagged_%": 99.3,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 7.5,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.476,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.5,
+      "MCC": -5.7,
+      "DR": 99.4,
+      "FAR": 100.0,
+      "AUC": 0.012,
+      "flagged_%": 100.0,
+      "threshold": 0.076
+     },
+     "LR": {
+      "F1": 15.7,
+      "MCC": 14.3,
+      "DR": 47.9,
+      "FAR": 18.6,
+      "AUC": 0.604,
+      "flagged_%": 19.7,
+      "threshold": 0.0062
+     },
+     "MLP": {
+      "F1": 7.5,
+      "MCC": -2.5,
+      "DR": 98.5,
+      "FAR": 99.0,
+      "AUC": 0.118,
+      "flagged_%": 99.0,
+      "threshold": 0.0
+     },
+     "XGB": {
+      "F1": 7.4,
+      "MCC": -7.5,
+      "DR": 97.9,
+      "FAR": 99.2,
+      "AUC": 0.041,
+      "flagged_%": 99.1,
+      "threshold": 0.0
+     }
+    }
+   },
+   "none": {
+    "default": {
+     "DT": {
+      "F1": 0.0,
+      "MCC": -3.7,
+      "DR": 0.0,
+      "FAR": 3.5,
+      "AUC": 0.483,
+      "flagged_%": 3.4,
+      "threshold": 0.5
+     },
+     "ET": {
+      "F1": 0.0,
+      "MCC": -2.6,
+      "DR": 0.0,
+      "FAR": 1.7,
+      "AUC": 0.106,
+      "flagged_%": 1.6,
+      "threshold": 0.5
+     },
+     "LR": {
+      "F1": 0.1,
+      "MCC": -0.7,
+      "DR": 0.0,
+      "FAR": 0.2,
+      "AUC": 0.892,
+      "flagged_%": 0.2,
+      "threshold": 0.5
+     },
+     "MLP": {
+      "F1": 0.1,
+      "MCC": -3.1,
+      "DR": 0.1,
+      "FAR": 2.6,
+      "AUC": 0.702,
+      "flagged_%": 2.5,
+      "threshold": 0.5
+     },
+     "XGB": {
+      "F1": 0.0,
+      "MCC": -3.6,
+      "DR": 0.0,
+      "FAR": 3.8,
+      "AUC": 0.022,
+      "flagged_%": 3.6,
+      "threshold": 0.5
+     }
+    },
+    "oracle": {
+     "DT": {
+      "F1": 7.5,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.483,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.6,
+      "MCC": 0.4,
+      "DR": 98.5,
+      "FAR": 98.0,
+      "AUC": 0.106,
+      "flagged_%": 98.0,
+      "threshold": 0.008
+     },
+     "LR": {
+      "F1": 40.6,
+      "MCC": 38.4,
+      "DR": 49.7,
+      "FAR": 3.9,
+      "AUC": 0.892,
+      "flagged_%": 5.7,
+      "threshold": 0.074
+     },
+     "MLP": {
+      "F1": 19.2,
+      "MCC": 19.2,
+      "DR": 65.7,
+      "FAR": 28.2,
+      "AUC": 0.702,
+      "flagged_%": 29.6,
+      "threshold": 0.0091
+     },
+     "XGB": {
+      "F1": 7.5,
+      "MCC": 0.5,
+      "DR": 100.0,
+      "FAR": 99.9,
+      "AUC": 0.022,
+      "flagged_%": 99.9,
+      "threshold": 0.0
+     }
+    },
+    "recalibrated": {
+     "DT": {
+      "F1": 7.5,
+      "MCC": 0.0,
+      "DR": 100.0,
+      "FAR": 100.0,
+      "AUC": 0.483,
+      "flagged_%": 100.0,
+      "threshold": 0.0
+     },
+     "ET": {
+      "F1": 7.6,
+      "MCC": 0.3,
+      "DR": 98.9,
+      "FAR": 98.7,
+      "AUC": 0.106,
+      "flagged_%": 98.7,
+      "threshold": 0.006
+     },
+     "LR": {
+      "F1": 39.0,
+      "MCC": 36.6,
+      "DR": 45.5,
+      "FAR": 3.6,
+      "AUC": 0.892,
+      "flagged_%": 5.3,
+      "threshold": 0.081
+     },
+     "MLP": {
+      "F1": 18.9,
+      "MCC": 19.2,
+      "DR": 70.0,
+      "FAR": 31.3,
+      "AUC": 0.702,
+      "flagged_%": 32.8,
+      "threshold": 0.0063
+     },
+     "XGB": {
+      "F1": 7.4,
+      "MCC": -4.7,
+      "DR": 98.3,
+      "FAR": 99.8,
+      "AUC": 0.022,
+      "flagged_%": 99.7,
+      "threshold": 0.0
+     }
+    }
+   },
+   "largest_oracle_minus_recalibrated_F1_points": 1.5
+  }
  }
 }

@@ -4,6 +4,7 @@ Reads the CSV files written by run_experiments.py (and the data summary written
 by prepare_data.py) and writes:
   results/tables/*.md and *.csv   tables (mean of the runs, standard deviation in parentheses)
   results/tables/facts.json       every other number quoted in the paper text
+                                  (the "adapt" and "adapt_dos" parts cover Section 6.5)
   figures/fig1_f1_same_vs_cross.png
   figures/fig2_cross_dataset_per_class.png
 
@@ -177,6 +178,78 @@ def shift_tables(res, out):
     save(fm, out, "table_top_features")
 
 
+ADAPT_SETTINGS = [("none", "default", "No fix"), ("none", "recalibrated", "Recalibrated threshold"),
+                  ("CORAL", "default", "CORAL"), ("CORAL", "recalibrated", "CORAL + recalibrated")]
+DIRECTIONS = [("CSE", "UNSW"), ("UNSW", "CSE")]
+
+
+def adapt_tables(res, out):
+    """Section 6.5: CORAL and threshold recalibration (main test and DoS-only test)."""
+    metrics = ["F1", "DR", "FAR", "MCC", "AUC"]
+    for name in ["adapt", "adapt_dos"]:
+        path = res / f"{name}_metrics.csv"
+        if not path.exists():
+            continue
+        a = pd.read_csv(path)
+        mean, sd, n = summary(a, ["train", "test", "adaptation", "threshold_type", "model"], metrics)
+        rows = []
+        for train, test in DIRECTIONS:
+            for adaptation in ["none", "CORAL"]:
+                for kind in ["default", "recalibrated", "oracle"]:
+                    for model in MODELS:
+                        key = (train, test, adaptation, kind, model)
+                        row = {"Trained on": train, "Tested on": test, "Adaptation": adaptation,
+                               "Threshold": kind, "Model": model}
+                        for k in metrics:
+                            row[k + (" (%)" if k in PCT else "")] = fmt(mean.loc[key, k], sd.loc[key, k], k in PCT)
+                        rows.append(row)
+        save(pd.DataFrame(rows), out, f"table_{name}_all")
+
+        # compact table for the paper: mean F1 and MCC (in %) of the five runs
+        rows = []
+        for train, test in DIRECTIONS:
+            for model in MODELS:
+                row = {"Trained on": train, "Tested on": test, "Model": model}
+                for adaptation, kind, label in ADAPT_SETTINGS:
+                    r = mean.loc[(train, test, adaptation, kind, model)]
+                    row[f"{label}: F1 / MCC (%)"] = f"{100 * r.F1:.1f} / {100 * r.MCC:.1f}"
+                rows.append(row)
+        save(pd.DataFrame(rows), out, f"table_{name}")
+
+
+def adapt_facts(res):
+    """Numbers for the text of Section 6.5."""
+    out = {}
+    for name in ["adapt", "adapt_dos"]:
+        path = res / f"{name}_metrics.csv"
+        if not path.exists():
+            continue
+        a = pd.read_csv(path)
+        a["flagged"] = (a.TP + a.FP) / a.n_test  # share of test flows flagged as attacks
+        f = {}
+        for (train, test), g in a.groupby(["train", "test"]):
+            d = f"{train}->{test}"
+            first = g[g.seed == g.seed.min()].iloc[0]
+            prevalence = (first.TP + first.FN) / first.n_test
+            f[d] = {"test_attack_share_%": round(100 * prevalence, 2),
+                    # F1 of a detector that flags every flow (its MCC is 0)
+                    "flag_all_F1_%": round(100 * 2 * prevalence / (1 + prevalence), 1),
+                    "n_calibration": sorted(g.n_calibration.unique().tolist()),
+                    "calibration_attacks": sorted(g.calibration_attacks.unique().tolist())}
+            m = g.groupby(["adaptation", "threshold_type", "model"])[
+                ["F1", "MCC", "DR", "FAR", "AUC", "flagged", "threshold"]].mean()
+            for (adaptation, kind, model), r in m.iterrows():
+                f[d].setdefault(adaptation, {}).setdefault(kind, {})[model] = {
+                    "F1": round(100 * r.F1, 1), "MCC": round(100 * r.MCC, 1), "DR": round(100 * r.DR, 1),
+                    "FAR": round(100 * r.FAR, 1), "AUC": round(r.AUC, 3),
+                    "flagged_%": round(100 * r.flagged, 1), "threshold": round(r.threshold, 4)}
+            # how close the recalibrated threshold came to the oracle threshold (F1, mean of runs)
+            gap = (m.xs("oracle", level="threshold_type")["F1"] - m.xs("recalibrated", level="threshold_type")["F1"])
+            f[d]["largest_oracle_minus_recalibrated_F1_points"] = round(100 * float(gap.max()), 1)
+        out[name] = f
+    return out
+
+
 def facts(res, out, data_dir):
     """Numbers quoted in the paper text, computed from the result files."""
     m = pd.read_csv(res / "main_metrics.csv")
@@ -240,6 +313,7 @@ def facts(res, out, data_dir):
     if (res / "dataset_classifier.csv").exists():
         dc = pd.read_csv(res / "dataset_classifier.csv")
         f["dataset_classifier_accuracy_%"] = {r.subset: round(100 * r.accuracy, 2) for r in dc.itertuples()}
+    f.update(adapt_facts(res))
     (out / "facts.json").write_text(json.dumps(f, indent=1))
     print("wrote facts.json")
 
@@ -331,6 +405,7 @@ def main():
         dos_table(res, out)
     if (res / "dataset_classifier.csv").exists():
         shift_tables(res, out)
+    adapt_tables(res, out)
     facts(res, out, args.data)
     fig_f1(res, figs)
     fig_per_class(res, figs)

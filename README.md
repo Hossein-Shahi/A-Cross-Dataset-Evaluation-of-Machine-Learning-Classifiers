@@ -1,27 +1,17 @@
 # Cross-Dataset Evaluation of Machine Learning Intrusion Detectors
-A Cross-Dataset Evaluation of Machine Learning Classifiers
 
-# Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets
-Hossein Shahi* 1, Junaid Shuja 2
+Code for the paper *Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets: A Cross-Dataset Evaluation of Machine Learning Classifiers*.
 
-Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
+**Authors:** Hossein Shahi (corresponding author) and Junaid Shuja, Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri, USA
 
-Department of Computer Science, Southeast Missouri State University, Cape Girardeau, Missouri
+**Archived on Zenodo:** https://doi.org/10.5281/zenodo.23275689 (version 1.0.1). Each new release gets its own DOI, and the Zenodo page lists all versions.
 
-DOI: https://doi.org/10.5281/zenodo.23275689
-
-This code is for the paper *Network Intrusion / DDoS Detection Using NetFlow Benchmark Datasets:
-A Cross-Dataset Evaluation of Machine Learning Classifiers*.
-
-The study trains five classifiers (logistic regression, decision tree, extra trees, XGBoost,
-and a multilayer perceptron) on one NetFlow dataset and tests them on the same dataset and on the other one,
-in both directions:
+The study trains five classifiers (logistic regression, decision tree, extra trees, XGBoost, and a multilayer perceptron) on one NetFlow dataset and tests them on the same dataset and on the other one, in both directions:
 
 - **NF-UNSW-NB15-v2** (called UNSW in the code)
 - **NF-CSE-CIC-IDS2018-v2** (called CSE in the code)
 
-It also replicates the Extra Trees baseline of Sarhan et al. (2022), tests DoS attacks on their own,
-and runs a short error analysis.
+It also replicates the Extra Trees baseline of Sarhan et al. (2022), tests DoS attacks on their own, and runs a short error analysis. Finally, it tests two simple fixes for the cross-dataset gap: CORAL domain adaptation (Sun et al., 2016) and a decision threshold recalibrated on a small labeled sample of the target dataset.
 
 ## Contents
 
@@ -29,7 +19,7 @@ and runs a short error analysis.
 |---|---|
 | `src/common.py` | Shared settings: dropped columns, CSE attack-class groups |
 | `src/prepare_data.py` | Step 1. Reads the two Kaggle files in batches, removes ports and TTL features, removes duplicate flows, samples the data, writes `prepared/` |
-| `src/run_experiments.py` | Step 2. Runs the replication, the main cross-dataset test, the DoS-only test and the error analysis, writes `results/*.csv` |
+| `src/run_experiments.py` | Step 2. Runs the replication, the main cross-dataset test, the DoS-only test, the error analysis, and the domain adaptation and threshold recalibration tests, writes `results/*.csv` |
 | `src/make_report.py` | Step 3. Builds the tables (`results/tables/`), the numbers quoted in the text (`results/tables/facts.json`) and the figures (`figures/`) |
 | `src/check_against_expected.py` | Step 4 (optional). Compares your results with the paper's results in `expected_results/` |
 | `expected_results/` | The result files behind every number in the paper |
@@ -81,7 +71,7 @@ python src/check_against_expected.py --results results --expected expected_resul
 
 On Linux or macOS, `bash run_all.sh` runs the same four commands.
 
-**Time and memory.** On a computer with 2 CPU cores and 8 GB of memory, step 1 takes about 1 minute, step 2 about 15 minutes, and step 3 a few seconds (16 minutes in total for the paper's run). Step 1 needs up to about 4 GB of memory, because the CSE file has 17 million rows. It reads the file in batches, so a laptop with 8 GB is enough. The other steps need less.
+**Time and memory.** On a computer with 2 CPU cores and 8 GB of memory, step 1 takes about 1 minute, step 2 about 36 minutes (21 of them for the domain adaptation and recalibration tests), and step 3 a few seconds (about 37 minutes in total). Step 1 needs up to about 4 GB of memory, because the CSE file has 17 million rows. It reads the file in batches, so a laptop with 8 GB is enough. The other steps need less.
 
 **Quick test.** To check that everything works before the full run, run one seed of the main experiment only (about 2 minutes):
 
@@ -102,7 +92,8 @@ Where each part of the paper comes from:
 | Table 3 and Figure 1 (main results) | `results/tables/table_main.md`, `figures/fig1_f1_same_vs_cross.png` |
 | Figure 2 (per-class detection) | `figures/fig2_cross_dataset_per_class.png`; all classes in `results/tables/table_per_class_all.md` |
 | Table 4 (DoS-only test) | `results/tables/table_dos_only_range.md`; per model in `results/tables/table_dos_only.md` |
-| Table 5 (top features) | `results/tables/table_top_features.md` |
+| Table 5 (domain adaptation and recalibration) | `results/tables/table_adapt.md`; all settings with standard deviations in `results/tables/table_adapt_all.md`; DoS-only version in `results/tables/table_adapt_dos.md` |
+| Table 6 (top features) | `results/tables/table_top_features.md` |
 | Dataset classifier (99.96%) | `results/tables/table_dataset_classifier.md` |
 | Other numbers in the text | `results/tables/facts.json` |
 
@@ -110,10 +101,19 @@ Where each part of the paper comes from:
 
 1. **Prepare.** Drops the source and destination ports (flow identifiers) and the two TTL features, which leaves 37 features. Removes flows that are exact copies of an earlier flow (same features and label). Keeps all 236,946 unique UNSW flows and draws a stratified sample of the same size from the 8,849,750 unique CSE flows (seed 42). For the replication, it draws a stratified sample of 1,000,000 flows from each file, keeping duplicates, as in the original protocol.
 2. **Experiments.** Every experiment except the error analysis runs with seeds 0 to 4; the error analysis uses seed 0. Each seed makes a new stratified 70/30 train/test split. All features go through log(1 + x) and min-max scaling, fitted on the training data only. The baseline replication uses min-max scaling only, as in the original protocol. Each model is trained on one dataset and tested on the test split of both datasets.
-3. **Report.** Averages the five runs and writes the tables and figures.
+3. **Domain adaptation and recalibration.** Uses the same splits and seeds as the main test. CORAL standardizes each dataset with its own statistics and gives the source features the correlations of the target, using target features without labels. A stratified 1% sample of the target training split (1,658 labeled flows) sets a new decision threshold, the one with the highest F1 score on the sample. The best threshold on the target test set ("oracle") is also saved, as an upper limit only.
+4. **Report.** Averages the five runs and writes the tables and figures.
 
 ## Data sources and credit
 
 The NetFlow datasets were created by Sarhan, Layeghy and Portmann (University of Queensland). The cleaned Kaggle versions were prepared by L. D'hooge. Please cite:
 
 - Sarhan, M., Layeghy, S., & Portmann, M. (2022). Towards a standard feature set for network intrusion detection system datasets. *Mobile Networks and Applications, 27*(1), 357-370. https://doi.org/10.1007/s11036-021-01843-0
+
+The CORAL method comes from:
+
+- Sun, B., Feng, J., & Saenko, K. (2016). Return of frustratingly easy domain adaptation. *Proceedings of the AAAI Conference on Artificial Intelligence, 30*(1), 2058-2065. https://doi.org/10.1609/aaai.v30i1.10306
+
+## Use of AI tools
+
+AI tools were used in writing this code. The authors reviewd all the results and take full responsibility for it. Every reported number comes from running these scripts.

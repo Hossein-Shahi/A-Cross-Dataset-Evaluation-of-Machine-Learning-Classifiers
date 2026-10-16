@@ -1,14 +1,20 @@
 """Step 2: run the experiments and save the raw results as CSV files.
 
-Experiments (choose with --exp, default: all four)
-  repl   Extra Trees inside each dataset with the original protocol of
-         Sarhan et al. (2022). Used to check the pipeline against their numbers.
-  main   Five classifiers. Each one is trained on one dataset and tested on the
-         test split of the same dataset and on the test split of the other one.
-  dos    The same test, but with benign and DoS flows only.
-  shift  Error analysis (first seed only): whether a model can tell the two
-         datasets apart, which features the XGB models rely on, and how these
-         features differ between the datasets.
+Experiments (choose with --exp, default: all six)
+  repl       Extra Trees inside each dataset with the original protocol of
+             Sarhan et al. (2022). Used to check the pipeline against their numbers.
+  main       Five classifiers. Each one is trained on one dataset and tested on the
+             test split of the same dataset and on the test split of the other one.
+  dos        The same test, but with benign and DoS flows only.
+  shift      Error analysis (first seed only): whether a model can tell the two
+             datasets apart, which features the XGB models rely on, and how these
+             features differ between the datasets.
+  adapt      Two simple fixes for the cross-dataset test (same splits as main):
+             CORAL domain adaptation (Sun et al., 2016), which uses unlabeled
+             target data, and a decision threshold recalibrated on a small labeled
+             sample (1%) of the target training split. An "oracle" threshold tuned
+             on the target test set is also recorded, as an upper limit only.
+  adapt_dos  The same, but with benign and DoS flows only.
 
 Every experiment is repeated with the seeds given by --seeds. Each seed gives a
 new 70/30 train/test split and a new random start for the models.
@@ -25,11 +31,11 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, matthews_corrcoef, roc_auc_score
+from sklearn.metrics import confusion_matrix, matthews_corrcoef, precision_recall_curve, roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer, MinMaxScaler
+from sklearn.preprocessing import FunctionTransformer, MinMaxScaler, StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
 
@@ -37,6 +43,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ATTACK, DATASETS, GROUP, LABEL, attack_group, feature_columns  # noqa: E402
 
 MODEL_NAMES = ["LR", "DT", "ET", "XGB", "MLP"]
+CAL_FRACTION = 0.01  # share of the target training split used as the labeled calibration sample
 
 
 def make_model(name, seed):
@@ -177,6 +184,106 @@ def run_cross(data_dir, seeds, dos_only=False):
     return out
 
 
+# ------------------------------------------- domain adaptation and recalibration
+def matrix_power(c, p):
+    """Power of a symmetric positive definite matrix (used for C^(-1/2) and C^(1/2))."""
+    w, v = np.linalg.eigh(c)
+    return (v * w ** p) @ v.T
+
+
+class Coral:
+    """CORAL domain adaptation (Sun et al., 2016, Algorithm 1).
+
+    After log(1 + x), each domain is standardized with its own mean and standard
+    deviation. The source features are then whitened with the source covariance and
+    re-colored with the target covariance, so that their correlations match the
+    target. The identity matrix is added to both covariances (lambda = 1), as in
+    the original paper. Only unlabeled target data is used.
+    """
+
+    def fit(self, X_source, X_target):
+        a, b = np.log1p(X_source), np.log1p(X_target)
+        self.source_scaler = StandardScaler().fit(a)
+        self.target_scaler = StandardScaler().fit(b)
+        a, b = self.source_scaler.transform(a), self.target_scaler.transform(b)
+        eye = np.eye(a.shape[1])
+        c_source = np.cov(a, rowvar=False) + eye
+        c_target = np.cov(b, rowvar=False) + eye
+        self.matrix = matrix_power(c_source, -0.5) @ matrix_power(c_target, 0.5)
+        return self
+
+    def source(self, X):
+        return self.source_scaler.transform(np.log1p(X)) @ self.matrix
+
+    def target(self, X):
+        return self.target_scaler.transform(np.log1p(X))
+
+
+def best_f1_threshold(y, score):
+    """Threshold with the highest F1 score; flows with score >= threshold are flagged."""
+    precision, recall, thresholds = precision_recall_curve(y, score)
+    p, r = precision[:-1], recall[:-1]
+    f1 = np.divide(2 * p * r, p + r, out=np.zeros_like(p), where=(p + r) > 0)
+    return float(thresholds[int(np.argmax(f1))])
+
+
+def run_adapt(data_dir, seeds, dos_only=False):
+    data = {n: load(data_dir, "main", n) for n in DATASETS}
+    features = feature_columns(data["UNSW"])
+    rows = []
+    tag = "adapt_dos" if dos_only else "adapt"
+
+    for seed in seeds:
+        # the same splits as in the main (or DoS-only) experiment
+        split = {n: train_test_split(d, test_size=0.3, stratify=d[GROUP], random_state=seed)
+                 for n, d in data.items()}
+        if dos_only:
+            split = {n: tuple(part[part[GROUP].isin(["Benign", "DoS"])] for part in pair)
+                     for n, pair in split.items()}
+
+        for source in DATASETS:
+            target = "CSE" if source == "UNSW" else "UNSW"
+            X_tr, y_tr = xy(split[source][0], features)
+            # The target training split is never used for testing. Its features (without
+            # labels) feed CORAL, and a small labeled sample of it calibrates the threshold.
+            pool = split[target][0]
+            cal, _ = train_test_split(pool, train_size=CAL_FRACTION, stratify=pool[GROUP], random_state=seed)
+            X_cal, y_cal = xy(cal, features)
+            X_te, y_te = xy(split[target][1], features)
+            coral = Coral().fit(X_tr, pool[features].to_numpy(dtype=np.float64))
+
+            for adaptation in ["none", "CORAL"]:
+                for model_name in MODEL_NAMES:
+                    t0 = time.perf_counter()
+                    if adaptation == "none":
+                        model = pipeline(make_model(model_name, seed)).fit(X_tr, y_tr)
+                        cal_in, test_in = X_cal, X_te
+                    else:
+                        model = make_model(model_name, seed).fit(coral.source(X_tr), y_tr)
+                        cal_in, test_in = coral.target(X_cal), coral.target(X_te)
+                    s_cal = model.predict_proba(cal_in)[:, 1]
+                    s_te = model.predict_proba(test_in)[:, 1]
+                    thresholds = {"default": None,  # the model's own decision (probability 0.5)
+                                  "recalibrated": best_f1_threshold(y_cal, s_cal),
+                                  "oracle": best_f1_threshold(y_te, s_te)}  # upper limit only
+                    for kind, t in thresholds.items():
+                        pred = model.predict(test_in) if t is None else (s_te >= t).astype(int)
+                        row = {"seed": seed, "train": source, "test": target, "adaptation": adaptation,
+                               "model": model_name, "threshold_type": kind,
+                               "threshold": 0.5 if t is None else t,
+                               "n_calibration": len(y_cal), "calibration_attacks": int(y_cal.sum()),
+                               "n_test": len(y_te)}
+                        row.update(metrics(y_te, pred, s_te))
+                        rows.append(row)
+                    last = {r["threshold_type"]: r for r in rows[-3:]}
+                    log(f"{tag} seed={seed} {adaptation:5s} {model_name:3s} train={source:4s} test={target:4s} "
+                        f"AUC={last['default']['AUC']:.3f} F1 default={last['default']['F1']:.3f} "
+                        f"recal={last['recalibrated']['F1']:.3f} oracle={last['oracle']['F1']:.3f} "
+                        f"({time.perf_counter() - t0:.0f}s)")
+                    del model
+    return {f"{tag}_metrics": pd.DataFrame(rows)}
+
+
 # --------------------------------------------------------------- error analysis
 def run_shift(data_dir, results_dir, seed=0, top_n=3):
     data = {n: load(data_dir, "main", n) for n in DATASETS}
@@ -241,8 +348,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", default="prepared", help="folder written by prepare_data.py")
     ap.add_argument("--out", default="results", help="folder for the CSV results")
-    ap.add_argument("--exp", nargs="+", default=["repl", "main", "dos", "shift"],
-                    choices=["repl", "main", "dos", "shift"])
+    ap.add_argument("--exp", nargs="+", default=["repl", "main", "dos", "shift", "adapt", "adapt_dos"],
+                    choices=["repl", "main", "dos", "shift", "adapt", "adapt_dos"])
     ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2, 3, 4])
     args = ap.parse_args()
     out = Path(args.out)
@@ -256,6 +363,10 @@ def main():
             tables = run_cross(args.data, args.seeds)
         elif exp == "dos":
             tables = run_cross(args.data, args.seeds, dos_only=True)
+        elif exp == "adapt":
+            tables = run_adapt(args.data, args.seeds)
+        elif exp == "adapt_dos":
+            tables = run_adapt(args.data, args.seeds, dos_only=True)
         else:
             tables = run_shift(args.data, out, seed=args.seeds[0])
         for name, table in tables.items():
